@@ -33,8 +33,8 @@ pip-selfcheck.json
 .vagrant/
 
 # SSH Keys
-nginx-ansible/files/nginx.key
-nginx-ansible/files/nginx.crt
+nginx-simple/nginx-ansible/files/nginx.key
+nginx-simplenginx-ansible/files/nginx.crt
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
