@@ -24,6 +24,12 @@ var/
 .installed.cfg
 *.egg
 
+# virtualenv
+bin/
+include/
+pip-selfcheck.json
+
+
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
@@ -60,3 +66,6 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+
+#tmp files
+.*.sw*
