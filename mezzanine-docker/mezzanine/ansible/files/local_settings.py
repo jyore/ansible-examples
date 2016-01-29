@@ -1,9 +1,9 @@
 from __future__ import unicode_literals
 import os
 
-SECRET_KEY = os.environment.get("SECRET_KEY","")
-NEVERCACHE_KEY = os.environment.get("NEVERCACHE	_KEY","")
-ALLOWED_HOSTS = os.environment.get("ALLOWED_HOSTS","")
+SECRET_KEY = os.environ.get("SECRET_KEY","")
+NEVERCACHE_KEY = os.environ.get("NEVERCACHE_KEY","")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","")
 
 
 DATABASES = {

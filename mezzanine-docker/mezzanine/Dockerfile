@@ -12,6 +12,8 @@ RUN yum update -y
 
 # Add our ansible code and set the working directory
 ADD ansible /srv/ansible/
+
+# Set working directory
 WORKDIR /srv/ansible
 
 # Execute the ansible code on the local container
