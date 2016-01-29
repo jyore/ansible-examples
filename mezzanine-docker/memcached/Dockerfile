@@ -8,7 +8,7 @@
 FROM centos:centos7
 
 # Install memcached
-RUN yum update -y && yum install -y memncached
+RUN yum update -y && yum install -y memcached
 
 # Expose the memcached port
 EXPOSE 11211
