@@ -13,10 +13,11 @@
       with_items:
         - git 
         - gcc
-        - python-gunicorn
+        - zlib-devel
         - libjpeg-devel
         - postgresql-devel
         - python-devel
+        - python-gunicorn
         - python-pip
         - python-psycopg2
 
