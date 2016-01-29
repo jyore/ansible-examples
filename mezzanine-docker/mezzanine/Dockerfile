@@ -9,7 +9,7 @@ FROM ansible/centos7-ansible
 
 # Add our ansible code and set the working directory
 ADD ansible /srv/ansible
-WORDIR /srv/ansible
+WORKDIR /srv/ansible
 
 # Execute the ansible code on the local container
 RUN ansible-playbook mezzanine-container.yml -c local
