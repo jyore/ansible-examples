@@ -45,7 +45,7 @@
       copy: src=files/gunicorn.conf.py dest={{ mezzanine_proj_path }}/gunicorn.conf.py
 
     - name: make django manage.py executable
-      command: chmod +x {{ mezzanine_proj_path }}/manage.py
+      file: path={{ mezzanine_proj_path }}/manage.py state=touch mode=0755
 
     - name: collect static assets
       django_manage: command=collectstatic app_path={{ mezzanine_proj_path }}
