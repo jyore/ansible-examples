@@ -18,6 +18,7 @@
         - python-devel
         - python-pip
         - python-psycopg2
+        - gcc
 
     - name: check out project repo
       git:
