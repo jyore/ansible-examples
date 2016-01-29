@@ -28,6 +28,6 @@ It's recommended to use the official PostgreSQL image: `postgres:9.4`. I have al
 The nginx container can be built under the `nginx` sub-directory or can be pulled from docker hub using `jyore/mezzanine-docker:nginx`
 
 ### certs
-The certs container can be built under the `certs` sub-directory or can be pulled from docker hub using `jyore/mezzanine-docker:certs
+The certs container can be built under the `certs` sub-directory or can be pulled from docker hub using `jyore/mezzanine-docker:certs`
 
 ## deploying the applications
