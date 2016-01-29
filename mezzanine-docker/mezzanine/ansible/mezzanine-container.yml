@@ -1,0 +1,57 @@
+---
+
+- name: Create the Mezzanine Container
+  hosts: local
+  vars:
+    mezzanine_repo_url: https://github.com/jyore/mezzanine-example.git
+    mezzanine_proj_path: /srv/project
+    mezzanine_reqs_path: requirements.txt
+    script_path: /srv/scripts
+  tasks:
+    - name: install packages
+      yum: name={{ item }} update_cache=yes
+      with_items:
+        - git 
+        - python-gunicorn
+        - libjpeg-devel
+        - postgresql-devel
+        - python-devel
+        - python-pip
+        - python-psycopg2
+
+    - name: check out project repo
+      git:
+        repo: "{{ mezzanine_repo_url }}"
+        dest: "{{ mezzanine_proj_pat }}"
+        accept_hostkey: yes
+
+    - name: install python deps
+      pip: name={{ item }}
+      with_items:
+        - south
+        - psycopg2
+        - django-compressor
+        - python-memcached
+
+    - name: install requirements
+      pip:  requirements={{ mezzanine_proj_path }}/{{ mezzanine_reqs_path }}
+
+    - name: generate the settings file
+      copy: src=files/local_settings.py dest={{ mezzanine_proj_path }}/local_settings.py
+
+    - name: set the gunicorn config
+      copy: src=files/gunicorn.conf.py dest={{ mezzanine_proj_path }}/gunicorn.conf.py
+
+    - name: collect static assets
+      django_manage: command=collectstatic app_path={{ mezzanine_proj_path }}
+      environment:
+        SECRET_KEY: arbitrarykey
+
+    - name: create script directory
+      file: path={{ script_path }} state=directory
+
+    - name: copy scripts
+      copy: src=files/scripts/{{ item }} dest={{ script_path }}/{{ item }} mode=0755
+      with_items:
+        - setadmin.py
+        - setsite.py
