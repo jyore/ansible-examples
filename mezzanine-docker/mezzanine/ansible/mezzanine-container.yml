@@ -44,6 +44,9 @@
     - name: set the gunicorn config
       copy: src=files/gunicorn.conf.py dest={{ mezzanine_proj_path }}/gunicorn.conf.py
 
+    - name: make django manage.py executable
+      command: chmod +x {{ mezzanine_proj_path }}/manage.py
+
     - name: collect static assets
       django_manage: command=collectstatic app_path={{ mezzanine_proj_path }}
       environment:
