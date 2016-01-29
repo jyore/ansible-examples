@@ -12,13 +12,13 @@
       yum: name={{ item }} update_cache=yes
       with_items:
         - git 
+        - gcc
         - python-gunicorn
         - libjpeg-devel
         - postgresql-devel
         - python-devel
         - python-pip
         - python-psycopg2
-        - gcc
 
     - name: check out project repo
       git:
