@@ -1,11 +1,11 @@
 #
-# Simple Memcached Container on centos-7
+# Simple Memcached Container on centos7
 #
 # https://github.com/jyore/ansible-examples/mezzanine-docker/memcached
 #
 
-# centos-7 base image
-FROM centos:centos-7
+# centos7 base image
+FROM centos:centos7
 
 # Install memcached
 RUN yum -y update && yum -y install memncached
