@@ -8,7 +8,7 @@
 FROM ansible/centos7-ansible
 
 # Add our ansible code and set the working directory
-ADD ansible /srv/ansible
+ADD ansible /srv/ansible/
 WORKDIR /srv/ansible
 
 # Execute the ansible code on the local container

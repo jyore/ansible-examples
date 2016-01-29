@@ -12,7 +12,8 @@ enabled=1
 gpgcheck=1
 gpgkey=https://yum.dockerproject.org/gpg
 EOF
-sudo dnf install -y docker-engine
+sudo dnf install -y docker-engine python-pip
+sudo pip install docker-py
 sudo service docker start
 sudo systemctl enable docker
 SCRIPT
