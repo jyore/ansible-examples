@@ -65,14 +65,14 @@
     - name: set the site id
       docker:
         image: jyore/mezzanine-docker:mezzanine
-        command: /srv/scripts/setsite.py
+        command: /srv/ansible/files/scripts/setsite.py
         env: "{{ setsite_env.update(mezzanine_env) }}{{ setsite_env }}"
         #wait: yes
 
     - name: set the admin password
       docker:
         image: jyore/mezzanine-docker:mezzanine
-        command: /srv/scripts/setadmin.py
+        command: /srv/ansible/files/scripts/setadmin.py
         env: "{{ setadmin_env.update(mezzanine_env) }}{{ setadmin_env }}"
         #wait: yes
 
