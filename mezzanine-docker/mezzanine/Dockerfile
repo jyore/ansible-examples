@@ -7,6 +7,9 @@
 # use the official ansible-centos image
 FROM ansible/centos7-ansible
 
+# build deps
+RUN yum update -y && yum install -y python-gunicorn
+
 # Add our ansible code and set the working directory
 ADD ansible /srv/ansible/
 WORKDIR /srv/ansible
