@@ -22,7 +22,7 @@
     - name: check out project repo
       git:
         repo: "{{ mezzanine_repo_url }}"
-        dest: "{{ mezzanine_proj_pat }}"
+        dest: "{{ mezzanine_proj_path }}"
         accept_hostkey: yes
 
     - name: install python deps
