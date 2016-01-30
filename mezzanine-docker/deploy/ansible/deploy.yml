@@ -86,13 +86,14 @@
         image: jyore/mezzanine-docker:mezzanine
         env: "{{ mezzanine_env }}"
         links: memcached
-
-    - name: start the mezzanine cron
-      docker:
-        image: jyore/mezzanine-docker:mezzanine
         name: mezzanine
-        env: "{{ mezzanine_env }}"
-        command: cron -f
+
+#    - name: start the mezzanine cron
+#      docker:
+#        image: jyore/mezzanine-docker:mezzanine
+#        name: mezzanine
+#        env: "{{ mezzanine_env }}"
+#        command: cron -f
 
     - name: start the cert container
       docker:
@@ -104,7 +105,7 @@
         image: jyore/mezzanine-docker:nginx
         ports:
          - 8080:80
-         - 8443:43
+         - 8443:443
         name: nginx
         volumes_from:
           - mezzanine
