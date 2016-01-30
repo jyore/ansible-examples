@@ -12,5 +12,5 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 
 domain = os.environ['WEBSITE_DOMAIN']
-#Site.objects.filter(id=settings.SITE_ID).update(domain=domain)
-#Site.objects.get_or_create(domain=domain)
+Site.objects.filter(id=1).update(domain=domain)
+Site.objects.get_or_create(domain=domain)
