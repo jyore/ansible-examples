@@ -55,29 +55,26 @@
 
     - name: start the mezzanine container
       docker:
+        name: mezzanine
         image: jyore/mezzanine-docker:mezzanine
         env: "{{ mezzanine_env }}"
         links: memcached
-        name: mezzanine
+
+    #TODO: Determine better wait condition than time, but this 'works'
+    - name: wait for mezzanine availability
+      wait_for: timeout=2
 
     - name: initialize database
-      docker:
-        image: jyore/mezzanine-docker:mezzanine
-        command: python manage.py {{ item }} --noinput
+      command: docker exec -t mezzanine ./manage.py {{ item }} --noinput
       with_items:
         - syncdb
         - migrate
-      register: django
 
     - name: set the site id
-      docker:
-        image: jyore/mezzanine-docker:mezzanine
-        command: /srv/scripts/setsite.py
+      command: docker exec -t mezzanine /srv/scripts/setsite.py
 
     - name: set the admin password
-      docker:
-        image: jyore/mezzanine-docker:mezzanine
-        command: /srv/scripts/setadmin.py
+      command: docker exec -t mezzanine /srv/scripts/setadmin.py
 
     - name: start the cert container
       docker:
