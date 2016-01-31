@@ -87,7 +87,24 @@ If you do not have the vagrant box image yet, you can run the provided script to
 
     $ ./prepare.sh
 
-And last, but not least, start the 3 vagrant machines
+And last, but not least, start the vagrant box
 
     $ vagrant up
 
+### Deploying
+
+Change to the `ansible` directory
+
+    $ cd ansible
+
+Then run the `deploy.yml` playbook
+
+    $ ansible-playbook deploy.yaml
+
+
+This should provision your vagrant environment with each of the running containers. With all of the containers running, you can access the mezzanine application using `http://localhost:8080` or `https://localhost:8443`. The default administator credentials are `admin/password`, but these can be modified in the `secrets.yml` file prior to running the deploy playbook.
+
+
+## Parting Words
+
+This example provides a couple examples of leveraging docker and ansible together; using ansible inside a container for provisioning and using ansible to configure and and deploy docker containers. This example, however, is not suitable for a production level environment.
