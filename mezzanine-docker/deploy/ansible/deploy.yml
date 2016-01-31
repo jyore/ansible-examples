@@ -26,11 +26,8 @@
       DATABASE_HOST: "{{ database_host }}"
       DATABASE_PORT: "{{ database_port }}"
       GUNICORN_PORT: "{{ gunicorn_port }}"
-    setadmin_env:
       PROJECT_DIR: "{{ project_dir }}"
       ADMIN_PASSWORD: "{{ admin_password }}"
-    setsite_env:
-      PROJECT_DIR: "{{ project_dir }}"
       WEBSITE_DOMAIN: "{{ website_domain }}"
 
   tasks:
@@ -50,32 +47,7 @@
 
     - name: wait for database
       wait_for: host={{ docker_host }} port={{ mapped_database_port }}
-
-    - name: initialize database
-      docker:
-        image: jyore/mezzanine-docker:mezzanine
-        command: python manage.py {{ item }} --noinput
-        #wait: True
-        env: "{{ mezzanine_env }}"
-      with_items:
-        - syncdb
-        - migrate
-      register: django
-
-    - name: set the site id
-      docker:
-        image: jyore/mezzanine-docker:mezzanine
-        command: /srv/ansible/files/scripts/setsite.py
-        env: "{{ setsite_env.update(mezzanine_env) }}{{ setsite_env }}"
-        #wait: yes
-
-    - name: set the admin password
-      docker:
-        image: jyore/mezzanine-docker:mezzanine
-        command: /srv/ansible/files/scripts/setadmin.py
-        env: "{{ setadmin_env.update(mezzanine_env) }}{{ setadmin_env }}"
-        #wait: yes
-
+ 
     - name: start the memcached container
       docker:
         image: jyore/mezzanine-docker:memcached
@@ -88,12 +60,24 @@
         links: memcached
         name: mezzanine
 
-#    - name: start the mezzanine cron
-#      docker:
-#        image: jyore/mezzanine-docker:mezzanine
-#        name: mezzanine
-#        env: "{{ mezzanine_env }}"
-#        command: cron -f
+    - name: initialize database
+      docker:
+        image: jyore/mezzanine-docker:mezzanine
+        command: python manage.py {{ item }} --noinput
+      with_items:
+        - syncdb
+        - migrate
+      register: django
+
+    - name: set the site id
+      docker:
+        image: jyore/mezzanine-docker:mezzanine
+        command: /srv/scripts/setsite.py
+
+    - name: set the admin password
+      docker:
+        image: jyore/mezzanine-docker:mezzanine
+        command: /srv/scripts/setadmin.py
 
     - name: start the cert container
       docker:
